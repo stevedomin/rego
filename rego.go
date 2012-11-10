@@ -2,10 +2,10 @@ package main
 
 import (
 	"encoding/json"
-	// "fmt"
 	"html/template"
 	"log"
 	"net/http"
+	"os"
 	"regexp"
 )
 
@@ -52,8 +52,13 @@ func main() {
 	// Static file serving
 	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("assets"))))
 
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "3000"
+	}
+
 	// Launch server
-	err := http.ListenAndServe(":3000", nil)
+	err := http.ListenAndServe(":"+port, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
