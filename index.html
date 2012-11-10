@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <title>Rego - A Go regular expression tester</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Rego - A Go regular expression tester">
+    <meta name="author" content="Steve Domin">
+
+	<!-- CSS -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+
+		/* Sticky footer styles
+		-------------------------------------------------- */
+
+		html,
+		body {
+			height: 100%;
+			/* The html and body elements cannot have any padding or margin. */
+		}
+
+		/* Wrapper for page content to push down footer */
+		#wrap {
+			min-height: 100%;
+			height: auto !important;
+			height: 100%;
+			/* Negative indent footer by it's height */
+			margin: 0 auto -60px;
+		}
+
+		/* Set the fixed height of the footer here */
+		#push,
+		#footer {
+			height: 60px;
+		}
+		
+		#footer {
+			background-color: #f5f5f5;
+		}
+
+		/* Lastly, apply responsive CSS fixes as necessary */
+		@media (max-width: 767px) {
+			#footer {
+				margin-left: -20px;
+				margin-right: -20px;
+				padding-left: 20px;
+				padding-right: 20px;
+			}
+		}
+
+		/* Custom page CSS
+		-------------------------------------------------- */
+		/* Not required for template or sticky footer method. */
+
+		.container {
+			width: auto;
+			max-width: 680px;
+		}
+		
+		.container .credit {
+			margin: 20px 0;
+		}
+	</style>
+	<link href="assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+	<!-- rego CSS -->
+	<link href="assets/css/rego.css" rel="stylesheet" media="screen">
+
+	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Fav and touch icons -->
+	<link rel="shortcut icon" href="../assets/ico/favicon.ico">
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+</head>
+<body>
+	<!-- Part 1: Wrap all page content here -->
+    <div id="wrap">
+		<!-- Begin page content -->
+		<div class="container">
+			<div class="page-header">
+				<h1>Rego</h1>
+			</div>
+			<form id="regexForm" action="/test_regex" method="POST">
+				<div>
+					<label>Your regular expression :</label>
+					<input id="regexInput" type="text" placeholder="Regex" value="p([a-z]+)ch" class="input-xxlarge"/>
+
+					<div class="controls controls-row">
+						<div class="control-group .span6" style="margin-left:0px;">
+							<label>Test string :</label>
+							<textarea id="testStringInput" rows="5" cols="20" placeholder="Test string">peach</textarea>
+						</div>
+
+						<div class="control-group .span6" style="width:63%">
+							<label>Match :</label>
+							<div id="match" class="well">
+							</div>
+						</div>
+					</div>
+
+					<label>Match groups :</label>
+					<table id="matchGroupsTable" class="table table-bordered">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Group Name</th>
+								<th>Group Match</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+				<!--<button type="submit" class="btn" value="Test"></button>-->
+			</form>
+		</div>
+
+		<div id="push"></div>
+    </div>
+
+	<div id="footer">
+		<div class="container">
+			<p class="muted credit">Built by <a href="http://stevedomin.com" target="_blank">Steve Domin</a>. You can find the sources at <a href="https://github.com/stevedomin/rego" target="_blank">github.com/stevedomin/rego</a>.</p>
+		</div>
+	</div>
+
+	<!--
+	
+	-->
+	
+
+	<!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!--
+    <script src="../assets/js/bootstrap-transition.js"></script>
+    <script src="../assets/js/bootstrap-alert.js"></script>
+    <script src="../assets/js/bootstrap-modal.js"></script>
+    <script src="../assets/js/bootstrap-dropdown.js"></script>
+    <script src="../assets/js/bootstrap-scrollspy.js"></script>
+    <script src="../assets/js/bootstrap-tab.js"></script>
+    <script src="../assets/js/bootstrap-tooltip.js"></script>
+    <script src="../assets/js/bootstrap-popover.js"></script>
+    <script src="../assets/js/bootstrap-button.js"></script>
+    <script src="../assets/js/bootstrap-collapse.js"></script>
+    <script src="../assets/js/bootstrap-carousel.js"></script>
+    <script src="../assets/js/bootstrap-typeahead.js"></script>
+	-->
+	<script type="text/javascript" src="assets/js/rego.js"></script>
+
+</body>
+</html>

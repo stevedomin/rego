@@ -1,4 +1,4 @@
 rego
 ====
 
-An online Go regular expression tester
+Rego is an online Go regular expression tester
