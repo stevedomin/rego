@@ -7,9 +7,9 @@ $(document).ready(function() {
 	function testRegex () {
 		$.ajax({
 			type: "POST",
-  			url: "/test_regex/",
+  			url: "/test_regexp/",
 			data: {
-				regex: $("#regexInput").val()
+				regexp: $("#regexpInput").val()
 				, testString: $("#testStringInput").val()
 			}
 		}).done(function(msg) {
@@ -47,7 +47,7 @@ $(document).ready(function() {
 		});
 	}
 
-	$("#regexForm").submit(function() {
+	$("#regexpForm").submit(function() {
 		testRegex();
 
 		return false;
@@ -55,12 +55,14 @@ $(document).ready(function() {
 
 	var testRegexTimeout;
 
-	$('#regexForm').input(function() {
+	$('#regexpForm').input(function() {
 		
 		if (testRegexTimeout)
 			clearTimeout(testRegexTimeout)
 
 		testRegexTimeout = setTimeout(testRegex, 750)
 	});
+
+	testRegex();
 
 });

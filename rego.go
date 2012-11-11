@@ -22,25 +22,26 @@ func handler(rw http.ResponseWriter, req *http.Request) {
 
 func regExpHandler(rw http.ResponseWriter, req *http.Request) {
 	req.ParseForm()
-	regexString := req.FormValue("regex")
+	regexpString := req.FormValue("regexp")
 	testString := req.FormValue("testString")
+
+	log.Printf("Regexp : %s", regexpString)
+	log.Printf("Test string : %s", testString)
 
 	m := &MatchResult{}
 
-	regex, _ := regexp.Compile(regexString)
-	matches := regex.FindStringSubmatch(testString)
+	r, _ := regexp.Compile(regexpString)
+	matches := r.FindStringSubmatch(testString)
 
 	if len(matches) > 0 {
 		m.Match = matches[0]
 		m.Groups = matches[1:]
 	}
 
-	m.GroupsName = regex.SubexpNames()[1:]
+	m.GroupsName = r.SubexpNames()[1:]
 
 	enc := json.NewEncoder(rw)
 	enc.Encode(m)
-
-	// fmt.Fprintf(rw, "%t", match)
 
 }
 
@@ -48,7 +49,7 @@ func main() {
 	// Main handler (index.html)
 	http.HandleFunc("/", handler)
 	// Regex testing service
-	http.HandleFunc("/test_regex/", regExpHandler)
+	http.HandleFunc("/test_regexp/", regExpHandler)
 	// Static file serving
 	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("assets"))))
 
