@@ -3,6 +3,7 @@
 jQuery.fn.input=function(a){var b=this;return a?b.bind({'input.input':function(c){b.unbind('keydown.input');a.call(this,c)},'keydown.input':function(c){a.call(this,c)}}):b.trigger('keydown.input')};
 
 $(document).ready(function() {
+	var testRegexTimeout;
 
 	function testRegex () {
 		$.ajax({
@@ -17,12 +18,11 @@ $(document).ready(function() {
 			var res = $.parseJSON(msg);
 			var allMatches = res.matches;
 			var groupsName = res.groupsName;
-			console.log(res);
-
-			// Empty match groups table
-			$("#matchGroupsTable tbody > tr").remove();
-
-			if (allMatches && allMatches.length > 0)
+			
+			// We clear previous results
+			clearResults();
+			
+			if (allMatches && allMatches[0] != null)
 			{
 				var l = allMatches.length;
 
@@ -62,13 +62,32 @@ $(document).ready(function() {
 		});
 	}
 
+	function clear() {
+		$("#regexpInput").val("");
+		$("#testStringInput").val("");
+
+		// Remove placeholder
+		$("#regexpInput").attr("placeholder", "");
+		$("#testStringInput").attr("placeholder", "");
+
+		clearResults();
+	}
+
+	function clearResults() {
+		// Empty match groups table
+		$("#matchGroupsTable tbody > tr").remove();
+
+		$("#match").html("")
+	}
+
+	// 
+	// Add Handlers
+	//
 	$("#regexpForm").submit(function() {
 		testRegex();
 
 		return false;
 	});
-
-	var testRegexTimeout;
 
 	$('#regexpForm').input(function() {
 		
@@ -78,6 +97,12 @@ $(document).ready(function() {
 		testRegexTimeout = setTimeout(testRegex, 750)
 	});
 
+	$("#clearAllButton").click(function() {
+		clear();
+	});
+
+
+	// Test sample regexp
 	testRegex();
 
 });
