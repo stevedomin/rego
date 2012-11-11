@@ -11,37 +11,52 @@ $(document).ready(function() {
 			data: {
 				regexp: $("#regexpInput").val()
 				, testString: $("#testStringInput").val()
+				, findAll: $("#findAllCheckbox").is(":checked")
 			}
 		}).done(function(msg) {
 			var res = $.parseJSON(msg);
-
+			var allMatches = res.matches;
+			var groupsName = res.groupsName;
 			console.log(res);
 
 			// Empty match groups table
 			$("#matchGroupsTable tbody > tr").remove();
 
-			if (res.match == "")
+			if (allMatches && allMatches.length > 0)
 			{
-				$("#match").html("No match !")
-				$("#match").css("color", "red")
-			}
-			else
-			{
-				var l = res.groups.length;
+				var l = allMatches.length;
 
-				// Match
-				$("#match").html(res.match)
+				// Match font color > green
 				$("#match").css("color", "green")
 
 				// Match groups
 				if (l > 0)
 				{
+					var match = [];
+					var matchGroupsTable = [];
+					var index = 0;
+
 					for (var i = 0; i < l; i++)
 					{
-						$('#matchGroupsTable > tbody:last').append('<tr><td>'+i+'</td><td>'+((res.groupsName[i] != "") ? res.groupsName[i] : "-")+'</td><td>'+res.groups[i]+'</td></tr>');
+						var matches = allMatches[i]; 
+						var m = matches.length;
+
+						match.push(matches[0]);
+						for (var j = 1; j < m; j++) 
+						{
+							matchGroupsTable.push('<tr><td>'+(index++)+'</td><td>'+((groupsName[j-1] != "") ? groupsName[j-1] : "-")+'</td><td>'+matches[j]+'</td></tr>');
+						}
 					}
+
+					$("#match").html(match.join(" "))
+					$('#matchGroupsTable > tbody:last').append(matchGroupsTable.join());
 				}
 
+			}
+			else
+			{
+				$("#match").html("No match !")
+				$("#match").css("color", "red")
 			}
 
 		});
