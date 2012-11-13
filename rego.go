@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -10,7 +11,7 @@ import (
 	"strconv"
 )
 
-type MatchResult struct {
+type MatchResultResponse struct {
 	Matches    [][]string `json:"matches"`
 	GroupsName []string   `json:"groupsName"`
 }
@@ -32,9 +33,15 @@ func regExpHandler(rw http.ResponseWriter, req *http.Request) {
 	log.Printf("Test string : %s", testString)
 	log.Printf("Find all : %t", findAll)
 
-	m := &MatchResult{}
+	m := &MatchResultResponse{}
 
-	r, _ := regexp.Compile(regexpString)
+	r, err := regexp.Compile(regexpString)
+	if err != nil {
+		log.Printf("Invalid RegExp : %s \n", regexpString)
+		rw.WriteHeader(500)
+		fmt.Fprintf(rw, "Invalid RegExp : %s", regexpString)
+		return
+	}
 
 	if findAll {
 		matches = r.FindAllStringSubmatch(testString, -1)

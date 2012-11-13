@@ -59,6 +59,9 @@ $(document).ready(function() {
 				$("#match").css("color", "red")
 			}
 
+		}).error(function(error) {
+			$("#match").html(error.responseText)
+			$("#match").css("color", "red")
 		});
 	}
 
