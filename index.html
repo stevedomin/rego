@@ -55,7 +55,7 @@
 
 		.container {
 			width: auto;
-			max-width: 680px;
+			max-width: 1000px;
 		}
 		
 		.container .credit {
@@ -86,24 +86,25 @@
 			<div class="page-header">
 				<h1>Rego</h1>
 			</div>
-			<form id="regexForm" action="/test_regex" method="POST">
-				<div>
+			<div class="row-fluid">
+				<form id="regexpForm" action="/test_regexp" method="POST" class="span6">
 					<label>Your regular expression :</label>
-					<input id="regexInput" type="text" placeholder="Regex" value="p([a-z]+)ch" class="input-xxlarge"/>
+					<input id="regexpInput" type="text" placeholder="r([a-z]+)go" value="r([a-z]+)go" />
 
-					<div class="controls controls-row">
-						<div class="control-group .span6" style="margin-left:0px;">
-							<label>Test string :</label>
-							<textarea id="testStringInput" rows="5" cols="20" placeholder="Test string">peach</textarea>
-						</div>
+					<label>Test string :</label>
+					<textarea id="testStringInput" rows="5" cols="20" placeholder="rego">rego</textarea>
 
-						<div class="control-group .span6" style="width:63%">
-							<label>Match :</label>
-							<div id="match" class="well">
-							</div>
-						</div>
+					<label class="checkbox">
+						<input id="findAllCheckbox" type="checkbox"> Find all
+					</label>
+
+					<button id="clearAllButton" class="btn" type="button">Clear all</button>
+				</form>
+				<form class="span6">
+					<label>Match :</label>
+					<div id="match" class="well">
 					</div>
-
+						
 					<label>Match groups :</label>
 					<table id="matchGroupsTable" class="table table-bordered">
 						<thead>
@@ -116,9 +117,8 @@
 						<tbody>
 						</tbody>
 					</table>
-				</div>
-				<!--<button type="submit" class="btn" value="Test"></button>-->
-			</form>
+				</form>
+			</div>
 		</div>
 
 		<div id="push"></div>
@@ -130,30 +130,24 @@
 		</div>
 	</div>
 
-	<!--
-	
-	-->
-	
 
 	<!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-    <!--
-    <script src="../assets/js/bootstrap-transition.js"></script>
-    <script src="../assets/js/bootstrap-alert.js"></script>
-    <script src="../assets/js/bootstrap-modal.js"></script>
-    <script src="../assets/js/bootstrap-dropdown.js"></script>
-    <script src="../assets/js/bootstrap-scrollspy.js"></script>
-    <script src="../assets/js/bootstrap-tab.js"></script>
-    <script src="../assets/js/bootstrap-tooltip.js"></script>
-    <script src="../assets/js/bootstrap-popover.js"></script>
-    <script src="../assets/js/bootstrap-button.js"></script>
-    <script src="../assets/js/bootstrap-collapse.js"></script>
-    <script src="../assets/js/bootstrap-carousel.js"></script>
-    <script src="../assets/js/bootstrap-typeahead.js"></script>
-	-->
 	<script type="text/javascript" src="assets/js/rego.js"></script>
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-36255462-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
 
 </body>
 </html>
