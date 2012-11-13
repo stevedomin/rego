@@ -3,12 +3,13 @@ rego
 
 Rego is an online Go regular expression tester
 
+Inspired by [rubular](http://rubular.com/).
+
+It's currently deployed on Heroku at [http://regoio.herokuapp.com/](http://regoio.herokuapp.com/)
+
 ## TODO
 
-* Better logging on server
-* Better error messages on client
 * Sharing (permalink)
-* Clear all fields
 * Add help and guide
 * Go regexp quickref ?
-* Dev docs
+* Add developer documentation
