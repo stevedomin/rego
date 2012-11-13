@@ -92,13 +92,17 @@ $(document).ready(function() {
 		return false;
 	});
 
-	$('#regexpForm').input(function() {
+	$("#regexpForm").input(function() {
 		
 		if (testRegexTimeout)
 			clearTimeout(testRegexTimeout)
 
 		testRegexTimeout = setTimeout(testRegex, 750)
 	});
+
+	$("#findAllCheckbox").click(function() {
+		testRegex();
+	})
 
 	$("#clearAllButton").click(function() {
 		clear();
