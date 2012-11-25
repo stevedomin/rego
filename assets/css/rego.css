@@ -1,3 +1,12 @@
+.container {
+	width: auto;
+	max-width: 1000px;
+}
+
+.container .credit {
+	margin: 20px 0;
+}
+
 #regexpForm {
 	border-right: 1px solid #EEE;
 }
@@ -8,4 +17,29 @@
 
 #testStringInput {
 	width: 92%;
+}
+
+#quickref {
+	font-size: 13px;
+}
+
+#quickref h3 {
+	text-align: center;
+	margin: 0px 0px 20px 0px;
+}
+
+#quickref td {
+	padding-right: 18px;
+}
+
+#quickrefFooter {
+	text-align: center;
+	margin-top: 15px;
+	border-top: 1px solid #cecece;
+	padding-top: 15px;
+	font-size: 12px;
+}
+
+#quickrefFooter p {
+	margin-bottom: 0px;
 }

@@ -27,11 +27,11 @@ func regExpHandler(rw http.ResponseWriter, req *http.Request) {
 	req.ParseForm()
 	regexpString := req.FormValue("regexp")
 	testString := req.FormValue("testString")
-	findAll, _ := strconv.ParseBool(req.FormValue("findAll"))
+	findAllSubmatch, _ := strconv.ParseBool(req.FormValue("findAllSubmatch"))
 
 	log.Printf("Regexp : %s", regexpString)
 	log.Printf("Test string : %s", testString)
-	log.Printf("Find all : %t", findAll)
+	log.Printf("Find all : %t", findAllSubmatch)
 
 	m := &MatchResultResponse{}
 
@@ -43,7 +43,7 @@ func regExpHandler(rw http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	if findAll {
+	if findAllSubmatch {
 		matches = r.FindAllStringSubmatch(testString, -1)
 	} else {
 		matches = [][]string{r.FindStringSubmatch(testString)}
