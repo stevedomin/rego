@@ -10,6 +10,4 @@ It's currently deployed on Heroku at [http://regoio.herokuapp.com/](http://regoi
 ## TODO
 
 * Sharing (permalink)
-* Add help and guide
-* Go regexp quickref ?
 * Add developer documentation

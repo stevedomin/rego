@@ -12,7 +12,7 @@ $(document).ready(function() {
 			data: {
 				regexp: $("#regexpInput").val()
 				, testString: $("#testStringInput").val()
-				, findAll: $("#findAllCheckbox").is(":checked")
+				, findAllSubmatch: $("#findAllSubmatchCheckbox").is(":checked")
 			}
 		}).done(function(msg) {
 			var res = $.parseJSON(msg);
@@ -100,11 +100,11 @@ $(document).ready(function() {
 		testRegexTimeout = setTimeout(testRegex, 750)
 	});
 
-	$("#findAllCheckbox").click(function() {
+	$("#findAllSubmatchCheckbox").click(function() {
 		testRegex();
 	})
 
-	$("#clearAllButton").click(function() {
+	$("#clearAllFieldsButton").click(function() {
 		clear();
 	});
 
