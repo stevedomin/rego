@@ -44,11 +44,11 @@ $(document).ready(function() {
             match.push(matches[0]);
             for (var j = 1; j < m; j++)
             {
-              matchGroupsTable.push('<tr><td>'+(index++)+'</td><td>'+((groupsName[j-1] != "") ? groupsName[j-1] : "-")+'</td><td>'+matches[j]+'</td></tr>');
+              matchGroupsTable.push('<tr><td>'+(index++)+'</td><td>'+((groupsName[j-1] != "") ? groupsName[j-1] : "-")+'</td><td>'+escapeHTML(matches[j])+'</td></tr>');
             }
           }
 
-          $("#match").html(match.join(" "))
+          $("#match").html(escapeHTML(match.join(" ")))
           $('#matchGroupsTable > tbody:last').append(matchGroupsTable.join());
         }
 
@@ -82,6 +82,12 @@ $(document).ready(function() {
 
     $("#match").html("")
   }
+
+  function escapeHTML(str) {
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+  };
 
   //
   // Add Handlers
