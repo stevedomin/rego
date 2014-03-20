@@ -1,279 +1,279 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
+  <meta charset="utf-8">
     <title>Rego - A Go regular expression tester</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Rego - A Go regular expression tester">
     <meta name="author" content="Steve Domin">
 
-	<!-- CSS -->
+  <!-- CSS -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
     <style type="text/css">
 
-		/* Sticky footer styles
-		-------------------------------------------------- */
+    /* Sticky footer styles
+    -------------------------------------------------- */
 
-		html,
-		body {
-			height: 100%;
-			/* The html and body elements cannot have any padding or margin. */
-		}
+    html,
+    body {
+      height: 100%;
+      /* The html and body elements cannot have any padding or margin. */
+    }
 
-		/* Wrapper for page content to push down footer */
-		#wrap {
-			min-height: 100%;
-			height: auto !important;
-			height: 100%;
-			/* Negative indent footer by it's height */
-			margin: 0 auto -60px;
-		}
+    /* Wrapper for page content to push down footer */
+    #wrap {
+      min-height: 100%;
+      height: auto !important;
+      height: 100%;
+      /* Negative indent footer by it's height */
+      margin: 0 auto -60px;
+    }
 
-		/* Set the fixed height of the footer here */
-		#push,
-		#footer {
-			height: 60px;
-		}
-		
-		#footer {
-			background-color: #f5f5f5;
-		}
+    /* Set the fixed height of the footer here */
+    #push,
+    #footer {
+      height: 60px;
+    }
 
-		/* Lastly, apply responsive CSS fixes as necessary */
-		@media (max-width: 767px) {
-			#footer {
-				margin-left: -20px;
-				margin-right: -20px;
-				padding-left: 20px;
-				padding-right: 20px;
-			}
-		}
+    #footer {
+      background-color: #f5f5f5;
+    }
 
-		.page-header {
-			margin-bottom: 20px;
-		}
-	</style>
-	<link href="assets/css/bootstrap-responsive.min.css" rel="stylesheet">
-	<!-- rego CSS -->
-	<link href="assets/css/rego.css" rel="stylesheet" media="screen">
+    /* Lastly, apply responsive CSS fixes as necessary */
+    @media (max-width: 767px) {
+      #footer {
+        margin-left: -20px;
+        margin-right: -20px;
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+    }
 
-	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-	<!--[if lt IE 9]>
-		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
+    .page-header {
+      margin-bottom: 20px;
+    }
+  </style>
+  <link href="assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+  <!-- rego CSS -->
+  <link href="assets/css/rego.css" rel="stylesheet" media="screen">
 
-	<!-- Fav and touch icons -->
-	<link rel="shortcut icon" href="../assets/ico/favicon.ico">
-	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+  <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <!-- Fav and touch icons -->
+  <link rel="shortcut icon" href="../assets/ico/favicon.ico">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
 </head>
 <body>
-	<!-- Part 1: Wrap all page content here -->
+  <!-- Part 1: Wrap all page content here -->
     <div id="wrap">
-		<!-- Begin page content -->
-		<div class="container">
-			<div class="page-header">
-				<h1>Rego</h1>
-				A <a href="http://golang.org" target="_blank"/>Go</a> regular expression tester
-			</div>
-			<div class="row-fluid">
-				<form id="regexpForm" action="/test_regexp" method="POST" class="span6">
-					<label>Your regular expression :</label>
-					<input id="regexpInput" type="text" placeholder="r([a-z]+)go" value="r([a-z]+)go" />
+    <!-- Begin page content -->
+    <div class="container">
+      <div class="page-header">
+        <h1>Rego</h1>
+        A <a href="http://golang.org" target="_blank"/>Go</a> regular expression tester
+      </div>
+      <div class="row-fluid">
+        <form id="regexpForm" action="/test_regexp" method="POST" class="span6">
+          <label>Your regular expression :</label>
+          <input id="regexpInput" type="text" placeholder="r([a-z]+)go" value="r([a-z]+)go" />
 
-					<label>Test string :</label>
-					<textarea id="testStringInput" rows="5" cols="20" placeholder="rego">rego</textarea>
+          <label>Test string :</label>
+          <textarea id="testStringInput" rows="5" cols="20" placeholder="rego">rego</textarea>
 
-					<label class="checkbox">
-						<input id="findAllSubmatchCheckbox" type="checkbox"> Find all submatch
-					</label>
+          <label class="checkbox">
+            <input id="findAllSubmatchCheckbox" type="checkbox"> Find all submatch
+          </label>
 
-					<button id="clearAllFieldsButton" class="btn btn-warning" type="button">Clear all fields</button>
-				</form>
-				<form class="span6">
-					<label>Match :</label>
-					<div id="match" class="well">
-					</div>
-						
-					<label>Match groups :</label>
-					<table id="matchGroupsTable" class="table table-bordered">
-						<thead>
-							<tr>
-								<th>#</th>
-								<th>Group Name</th>
-								<th>Group Match</th>
-							</tr>
-						</thead>
-						<tbody>
-						</tbody>
-					</table>
-				</form>
-			</div>
-			<div class="row-fluid">
-				<div id="quickref" class="well">
-					<h3>Go RegExp Quick Reference (<a href="http://rubular.com/" target="_blank">&#0169; Rubular</a>)</h3>
-					<div style="float:left">
-						<table>
-							<tbody>
-								<tr>
-									<td><code>[abc]</code></td>
-									<td>A single character of: a, b or c</td>
-								</tr>
-								<tr>
-									<td><code>[^abc]</code></td>
-									<td>Any single character except: a, b, or c</td>
-								</tr>
-								<tr>
-									<td><code>[a-z]</code></td>
-									<td>Any single character in the range a-z</td>
-								</tr>
-								<tr>
-									<td><code>[a-zA-Z]</code></td>
-									<td>Any single character in the range a-z or A-Z</td>
-								</tr>
-								<tr>
-									<td><code>^</code></td>
-									<td>Start of line</td>
-								</tr>
-								<tr>
-									<td><code>$</code></td>
-									<td>End of line</td>
-								</tr>
-								<tr>
-									<td><code>\A</code></td>
-									<td>Start of string</td>
-								</tr>
-								<tr>
-									<td><code>\z</code></td>
-									<td>End of string</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					
-					<div style="float:left">
-						<table>
-							<tbody>
-								<tr>
-									<td><code>.</code></td>
-									<td>Any single character</td>
-								</tr>
-								<tr>
-									<td><code>\s</code></td>
-									<td>Any whitespace character</td>
-								</tr>
-								<tr>
-									<td><code>\S</code></td>
-									<td>Any non-whitespace character</td>
-								</tr>
-								<tr>
-									<td><code>\d</code></td>
-									<td>Any digit</td>
-								</tr>
-								<tr>
-									<td><code>\D</code></td>
-									<td>Any non-digit</td>
-								</tr>
-								<tr>
-									<td><code>\w</code></td>
-									<td>Any word character (letter, number, underscore)</td>
-								</tr>
-								<tr>
-									<td><code>\W</code></td>
-									<td>Any non-word character</td>
-								</tr>
-								<tr>
-									<td><code>\b</code></td>
-									<td>Any word boundary</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
+          <button id="clearAllFieldsButton" class="btn btn-warning" type="button">Clear all fields</button>
+        </form>
+        <form class="span6">
+          <label>Match :</label>
+          <div id="match" class="well">
+          </div>
 
-					<table>
-						<tbody>
-							<tr>
-								<td><code>(...)</code></td>
-								<td>Capture everything enclosed</td>
-							</tr>
-							<tr>
-								<td><code>(a|b)</code></td>
-								<td>a or b</td>
-							</tr>
-							<tr>
-								<td><code>a?</code></td>
-								<td>Zero or one of a</td>
-							</tr>
-							<tr>
-								<td><code>a*</code></td>
-								<td>Zero or more of a</td>
-							</tr>
-							<tr>
-								<td><code>a+</code></td>
-								<td>One or more of a</td>
-							</tr>
-							<tr>
-								<td><code>a{3}</code></td>
-								<td>Exactly 3 of a</td>
-							</tr>
-							<tr>
-								<td><code>a{3,}</code></td>
-								<td>3 or more of a</td>
-							</tr>
-							<tr>
-								<td><code>a{3,6}</code></td>
-								<td>Between 3 and 6 of a</td>
-							</tr>        
-						</tbody>
-					</table>
-					
-					<div id="quickrefFooter">
-						<p>
-							Full syntax reference at <a href="http://code.google.com/p/re2/wiki/Syntax" target="_blank">http://code.google.com/p/re2/wiki/Syntax</a>. Go RegExp doc at <a href="http://golang.org/pkg/regexp/" target="_blank">http://golang.org/pkg/regexp/</a>.
-						</p>
-						<!--
-						<p>
-							options:
-								<code>i</code> case insensitive
-								<code>m</code> make dot match newlines
-								<code>x</code> ignore whitespace in regex
-								<code>o</code> perform #{...} substitutions only once
-						</p>
-						-->
-					</div>
-				</div>
-			</div>
-		</div>
+          <label>Match groups :</label>
+          <table id="matchGroupsTable" class="table table-bordered">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Group Name</th>
+                <th>Group Match</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </form>
+      </div>
+      <div class="row-fluid">
+        <div id="quickref" class="well">
+          <h3>Go RegExp Quick Reference (<a href="http://rubular.com/" target="_blank">&#0169; Rubular</a>)</h3>
+          <div style="float:left">
+            <table>
+              <tbody>
+                <tr>
+                  <td><code>[abc]</code></td>
+                  <td>A single character of: a, b or c</td>
+                </tr>
+                <tr>
+                  <td><code>[^abc]</code></td>
+                  <td>Any single character except: a, b, or c</td>
+                </tr>
+                <tr>
+                  <td><code>[a-z]</code></td>
+                  <td>Any single character in the range a-z</td>
+                </tr>
+                <tr>
+                  <td><code>[a-zA-Z]</code></td>
+                  <td>Any single character in the range a-z or A-Z</td>
+                </tr>
+                <tr>
+                  <td><code>^</code></td>
+                  <td>Start of line</td>
+                </tr>
+                <tr>
+                  <td><code>$</code></td>
+                  <td>End of line</td>
+                </tr>
+                <tr>
+                  <td><code>\A</code></td>
+                  <td>Start of string</td>
+                </tr>
+                <tr>
+                  <td><code>\z</code></td>
+                  <td>End of string</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-		<div id="push"></div>
+          <div style="float:left">
+            <table>
+              <tbody>
+                <tr>
+                  <td><code>.</code></td>
+                  <td>Any single character</td>
+                </tr>
+                <tr>
+                  <td><code>\s</code></td>
+                  <td>Any whitespace character</td>
+                </tr>
+                <tr>
+                  <td><code>\S</code></td>
+                  <td>Any non-whitespace character</td>
+                </tr>
+                <tr>
+                  <td><code>\d</code></td>
+                  <td>Any digit</td>
+                </tr>
+                <tr>
+                  <td><code>\D</code></td>
+                  <td>Any non-digit</td>
+                </tr>
+                <tr>
+                  <td><code>\w</code></td>
+                  <td>Any word character (letter, number, underscore)</td>
+                </tr>
+                <tr>
+                  <td><code>\W</code></td>
+                  <td>Any non-word character</td>
+                </tr>
+                <tr>
+                  <td><code>\b</code></td>
+                  <td>Any word boundary</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <table>
+            <tbody>
+              <tr>
+                <td><code>(...)</code></td>
+                <td>Capture everything enclosed</td>
+              </tr>
+              <tr>
+                <td><code>(a|b)</code></td>
+                <td>a or b</td>
+              </tr>
+              <tr>
+                <td><code>a?</code></td>
+                <td>Zero or one of a</td>
+              </tr>
+              <tr>
+                <td><code>a*</code></td>
+                <td>Zero or more of a</td>
+              </tr>
+              <tr>
+                <td><code>a+</code></td>
+                <td>One or more of a</td>
+              </tr>
+              <tr>
+                <td><code>a{3}</code></td>
+                <td>Exactly 3 of a</td>
+              </tr>
+              <tr>
+                <td><code>a{3,}</code></td>
+                <td>3 or more of a</td>
+              </tr>
+              <tr>
+                <td><code>a{3,6}</code></td>
+                <td>Between 3 and 6 of a</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div id="quickrefFooter">
+            <p>
+              Full syntax reference at <a href="http://code.google.com/p/re2/wiki/Syntax" target="_blank">http://code.google.com/p/re2/wiki/Syntax</a>. Go RegExp doc at <a href="http://golang.org/pkg/regexp/" target="_blank">http://golang.org/pkg/regexp/</a>.
+            </p>
+            <!--
+            <p>
+              options:
+                <code>i</code> case insensitive
+                <code>m</code> make dot match newlines
+                <code>x</code> ignore whitespace in regex
+                <code>o</code> perform #{...} substitutions only once
+            </p>
+            -->
+          </div>
+        </div>
+      </div>
     </div>
 
-	<div id="footer">
-		<div class="container">
-			<p class="muted credit">Built by <a href="https://github.com/stevedomin" target="_blank">Steve Domin</a>. Inspired by <a href="http://rubular.com/" target="_blank">Rubular</a>. You can find the sources at <a href="https://github.com/stevedomin/rego" target="_blank">github.com/stevedomin/rego</a>.</p>
-		</div>
-	</div>
+    <div id="push"></div>
+    </div>
+
+  <div id="footer">
+    <div class="container">
+      <p class="muted credit">Built by <a href="https://github.com/stevedomin" target="_blank">Steve Domin</a>. Inspired by <a href="http://rubular.com/" target="_blank">Rubular</a>. You can find the sources at <a href="https://github.com/stevedomin/rego" target="_blank">github.com/stevedomin/rego</a>.</p>
+    </div>
+  </div>
 
 
-	<!-- Le javascript
+  <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-	<script type="text/javascript" src="assets/js/rego.js"></script>
+  <script type="text/javascript" src="assets/js/rego.js"></script>
 
-	<script type="text/javascript">
-		var _gaq = _gaq || [];
-		_gaq.push(['_setAccount', 'UA-36255462-1']);
-		_gaq.push(['_trackPageview']);
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-36255462-1']);
+    _gaq.push(['_trackPageview']);
 
-		(function() {
-			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		})();
-	</script>
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
 
 </body>
 </html>

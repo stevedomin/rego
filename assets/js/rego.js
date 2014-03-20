@@ -3,113 +3,113 @@
 jQuery.fn.input=function(a){var b=this;return a?b.bind({'input.input':function(c){b.unbind('keydown.input');a.call(this,c)},'keydown.input':function(c){a.call(this,c)}}):b.trigger('keydown.input')};
 
 $(document).ready(function() {
-	var testRegexTimeout;
+  var testRegexTimeout;
 
-	function testRegex () {
-		$.ajax({
-			type: "POST",
-  			url: "/test_regexp/",
-			data: {
-				regexp: $("#regexpInput").val()
-				, testString: $("#testStringInput").val()
-				, findAllSubmatch: $("#findAllSubmatchCheckbox").is(":checked")
-			}
-		}).done(function(msg) {
-			var res = $.parseJSON(msg);
-			var allMatches = res.matches;
-			var groupsName = res.groupsName;
-			
-			// We clear previous results
-			clearResults();
-			
-			if (allMatches && allMatches[0] != null)
-			{
-				var l = allMatches.length;
+  function testRegex () {
+    $.ajax({
+      type: "POST",
+        url: "/test_regexp/",
+      data: {
+        regexp: $("#regexpInput").val()
+        , testString: $("#testStringInput").val()
+        , findAllSubmatch: $("#findAllSubmatchCheckbox").is(":checked")
+      }
+    }).done(function(msg) {
+      var res = $.parseJSON(msg);
+      var allMatches = res.matches;
+      var groupsName = res.groupsName;
 
-				// Match font color > green
-				$("#match").css("color", "green")
+      // We clear previous results
+      clearResults();
 
-				// Match groups
-				if (l > 0)
-				{
-					var match = [];
-					var matchGroupsTable = [];
-					var index = 0;
+      if (allMatches && allMatches[0] != null)
+      {
+        var l = allMatches.length;
 
-					for (var i = 0; i < l; i++)
-					{
-						var matches = allMatches[i]; 
-						var m = matches.length;
+        // Match font color > green
+        $("#match").css("color", "green")
 
-						match.push(matches[0]);
-						for (var j = 1; j < m; j++) 
-						{
-							matchGroupsTable.push('<tr><td>'+(index++)+'</td><td>'+((groupsName[j-1] != "") ? groupsName[j-1] : "-")+'</td><td>'+matches[j]+'</td></tr>');
-						}
-					}
+        // Match groups
+        if (l > 0)
+        {
+          var match = [];
+          var matchGroupsTable = [];
+          var index = 0;
 
-					$("#match").html(match.join(" "))
-					$('#matchGroupsTable > tbody:last').append(matchGroupsTable.join());
-				}
+          for (var i = 0; i < l; i++)
+          {
+            var matches = allMatches[i];
+            var m = matches.length;
 
-			}
-			else
-			{
-				$("#match").html("No match !")
-				$("#match").css("color", "red")
-			}
+            match.push(matches[0]);
+            for (var j = 1; j < m; j++)
+            {
+              matchGroupsTable.push('<tr><td>'+(index++)+'</td><td>'+((groupsName[j-1] != "") ? groupsName[j-1] : "-")+'</td><td>'+matches[j]+'</td></tr>');
+            }
+          }
 
-		}).error(function(error) {
-			$("#match").html(error.responseText)
-			$("#match").css("color", "red")
-		});
-	}
+          $("#match").html(match.join(" "))
+          $('#matchGroupsTable > tbody:last').append(matchGroupsTable.join());
+        }
 
-	function clear() {
-		$("#regexpInput").val("");
-		$("#testStringInput").val("");
+      }
+      else
+      {
+        $("#match").html("No match !")
+        $("#match").css("color", "red")
+      }
 
-		// Remove placeholder
-		$("#regexpInput").attr("placeholder", "");
-		$("#testStringInput").attr("placeholder", "");
+    }).error(function(error) {
+      $("#match").html(error.responseText)
+      $("#match").css("color", "red")
+    });
+  }
 
-		clearResults();
-	}
+  function clear() {
+    $("#regexpInput").val("");
+    $("#testStringInput").val("");
 
-	function clearResults() {
-		// Empty match groups table
-		$("#matchGroupsTable tbody > tr").remove();
+    // Remove placeholder
+    $("#regexpInput").attr("placeholder", "");
+    $("#testStringInput").attr("placeholder", "");
 
-		$("#match").html("")
-	}
+    clearResults();
+  }
 
-	// 
-	// Add Handlers
-	//
-	$("#regexpForm").submit(function() {
-		testRegex();
+  function clearResults() {
+    // Empty match groups table
+    $("#matchGroupsTable tbody > tr").remove();
 
-		return false;
-	});
+    $("#match").html("")
+  }
 
-	$("#regexpForm").input(function() {
-		
-		if (testRegexTimeout)
-			clearTimeout(testRegexTimeout)
+  //
+  // Add Handlers
+  //
+  $("#regexpForm").submit(function() {
+    testRegex();
 
-		testRegexTimeout = setTimeout(testRegex, 750)
-	});
+    return false;
+  });
 
-	$("#findAllSubmatchCheckbox").click(function() {
-		testRegex();
-	})
+  $("#regexpForm").input(function() {
 
-	$("#clearAllFieldsButton").click(function() {
-		clear();
-	});
+    if (testRegexTimeout)
+      clearTimeout(testRegexTimeout)
+
+    testRegexTimeout = setTimeout(testRegex, 750)
+  });
+
+  $("#findAllSubmatchCheckbox").click(function() {
+    testRegex();
+  })
+
+  $("#clearAllFieldsButton").click(function() {
+    clear();
+  });
 
 
-	// Test sample regexp
-	testRegex();
+  // Test sample regexp
+  testRegex();
 
 });
